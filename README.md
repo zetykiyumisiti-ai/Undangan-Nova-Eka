@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wedding of Nova & Eka</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --navy: #001F3F;
+            --baby-blue: #89CFF0;
+        }
+        body { font-family: 'Montserrat', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
+        h1, h2, h3, .font-serif { font-family: 'Playfair Display', serif; }
+        .font-cursive { font-family: 'Great Vibes', cursive; }
+        
+        /* Background Global Website */
+        .global-bg {
+            background-image: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), 
+                              url('https://drive.google.com/uc?export=view&id=1CRrxwiV9r0YZaUwAVSmtbXf5HH_VakcP');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+
+        /* 1. EFEK PINTU BIRU */
+        #door-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(0,31,63,0.6), rgba(0,31,63,0.6)), url('https://drive.google.com/uc?export=view&id=1RTl_mzJNnfX9U4nRuoRFIUiAtkPVWikd');
+            background-size: cover; background-position: center;
+            z-index: 9999; display: flex; justify-content: center; align-items: center;
+            transition: transform 1.5s cubic-bezier(0.7, 0, 0.3, 1);
+        }
+        .door-open { transform: translateY(-100%); pointer-events: none; }
+
+        /* Kaca (Glassmorphism) */
+        .glass { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.5); }
+        .glass-blue { background: rgba(137, 207, 240, 0.15); border: 1px solid var(--baby-blue); }
+
+        /* Container Pembatas untuk Desktop */
+        .desktop-container { max-width: 1100px; margin: 0 auto; }
+
+        /* Animasi Tombol Buka Undangan */
+        .pulse-btn { animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255,255,255, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255, 0); }
+        }
+    </style>
+</head>
+<body class="global-bg overflow-hidden">
+
+    <div id="audio-container" class="hidden"></div>
+
+    <div id="door-overlay">
+        <div class="text-center text-white px-6 w-full max-w-lg" data-aos="zoom-in">
+            <h2 class="font-cursive text-5xl md:text-6xl mb-4">The Wedding of</h2>
+            <h1 class="text-4xl md:text-5xl font-bold tracking-widest uppercase mb-10">Nova & Eka</h1>
+            <div class="mb-10 p-6 glass rounded-2xl text-navy shadow-2xl">
+                <p class="text-sm font-semibold mb-2 opacity-80 uppercase tracking-widest">Dear:</p>
+                <h3 id="guest-name-door" class="text-2xl md:text-3xl font-bold border-b-2 border-navy pb-2 inline-block">[Nama Tamu]</h3>
+                <p class="text-xs mt-3 italic opacity-70">You're invited to our wedding</p>
+            </div>
+            <button onclick="openInvitation()" class="bg-white text-navy px-10 py-4 rounded-full font-bold shadow-2xl pulse-btn hover:bg-sky-100 transition">
+                <i class="fa-solid fa-envelope-open mr-2"></i> BUKA UNDANGAN
+            </button>
+        </div>
+    </div>
+
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                <source src="https://drive.google.com/uc?export=download&id=1gBC0Tnupv4cJI5zanZe9VscYcvQ68vxt" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-navy/40"></div> </div>
+        
+        <div class="relative z-10 text-center text-white w-full max-w-2xl px-4" data-aos="fade-up">
+            <h4 class="uppercase tracking-[0.3em] text-sm mb-4">You're invited to our wedding</h4>
+            <h1 class="font-cursive text-7xl md:text-9xl mb-6 drop-shadow-lg">Nova & Eka</h1>
+            <p class="text-lg md:text-2xl font-light tracking-widest">Kamis, 26 Maret 2026</p>
+            <div class="mt-20 animate-bounce">
+                <p class="text-xs uppercase tracking-widest mb-2">Scroll</p>
+                <i class="fa-solid fa-chevron-down text-2xl"></i>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 desktop-container">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-navy text-4xl md:text-5xl font-cursive mb-4">Mempelai Berbahagia</h2>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Branch_divider.svg" class="w-32 mx-auto opacity-50">
+        </div>
+
+        <div class="flex flex-col md:flex-row justify-center items-center gap-16 md:gap-24">
+            
+            <div class="text-center w-full md:w-1/2" data-aos="fade-right">
+                <div class="w-64 h-80 mx-auto rounded-t-full border-8 border-white shadow-2xl overflow-hidden mb-6 relative">
+                    <img src="https://drive.google.com/uc?export=view&id=1bq_bCPFG4be-OsO9lwKhTqHitCWcWXMQ" class="w-full h-full object-cover">
+                </div>
+                <h3 class="font-cursive text-5xl text-navy mb-2">Hanivah Mardiyani</h3>
+                <p class="text-sm text-gray-500 font-bold uppercase tracking-widest mb-3">Pengantin Wanita</p>
+                <p class="text-gray-700 italic">Putri pertama dari <br> Bapak Adpentur Suri Nan Kayo & Ibu Lastri</p>
+            </div>
+
+            <div class="hidden md:block text-6xl font-cursive text-baby-blue opacity-50">&</div>
+
+            <div class="text-center w-full md:w-1/2" data-aos="fade-left">
+                <div class="w-64 h-80 mx-auto rounded-t-full border-8 border-white shadow-2xl overflow-hidden mb-6 relative">
+                    <img src="https://drive.google.com/uc?export=view&id=1Lt2iTlW4P50GPM_3ox1oiPPtDy8annGg" class="w-full h-full object-cover">
+                </div>
+                <h3 class="font-cursive text-5xl text-navy mb-2">Eka Saputra</h3>
+                <p class="text-sm text-gray-500 font-bold uppercase tracking-widest mb-3">Pengantin Pria</p>
+                <p class="text-gray-700 italic">Putra Kelima dari <br> Bapak Zainul Amri Sutan Rajo Basa & Yasrida</p>
+            </div>
+            
+        </div>
+    </section>
+
+    <section class="py-24 bg-navy text-white relative">
+        <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/floral-paper.png');"></div>
+        
+        <div class="desktop-container px-6 relative z-10">
+            
+            <div class="text-center mb-20" data-aos="zoom-in">
+                <h2 class="font-cursive text-4xl mb-8 text-sky-200">Menuju Hari Bahagia</h2>
+                <div class="flex justify-center gap-3 md:gap-6 text-navy">
+                    <div class="glass p-3 md:p-6 rounded-2xl w-20 md:w-28 text-center"><span id="days" class="text-3xl md:text-5xl font-bold block">00</span><span class="text-[10px] md:text-xs uppercase font-bold">Hari</span></div>
+                    <div class="glass p-3 md:p-6 rounded-2xl w-20 md:w-28 text-center"><span id="hours" class="text-3xl md:text-5xl font-bold block">00</span><span class="text-[10px] md:text-xs uppercase font-bold">Jam</span></div>
+                    <div class="glass p-3 md:p-6 rounded-2xl w-20 md:w-28 text-center"><span id="minutes" class="text-3xl md:text-5xl font-bold block">00</span><span class="text-[10px] md:text-xs uppercase font-bold">Menit</span></div>
+                    <div class="glass p-3 md:p-6 rounded-2xl w-20 md:w-28 text-center"><span id="seconds" class="text-3xl md:text-5xl font-bold block">00</span><span class="text-[10px] md:text-xs uppercase font-bold">Detik</span></div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-10">
+                <div class="glass glass-blue p-8 md:p-12 rounded-3xl text-center shadow-xl text-white" data-aos="fade-up">
+                    <i class="fa-solid fa-ring text-4xl text-sky-300 mb-4"></i>
+                    <h3 class="text-3xl font-serif mb-6 border-b border-white/30 pb-4">Akad Nikah</h3>
+                    <p class="text-xl font-bold mb-2">Kamis, 26 Maret 2026</p>
+                    <p class="mb-6 opacity-90">09:00 WIB - Selesai</p>
+                    <p class="font-semibold text-sky-200 mb-2">Masjid Al-Ijtihad Ateh Tambuo</p>
+                    <a href="https://maps.app.goo.gl/t4PQ8KkeX9RKR4Yp6" target="_blank" class="inline-block mt-4 bg-white text-navy px-8 py-3 rounded-full text-sm font-bold hover:bg-sky-100 transition shadow-lg"><i class="fa-solid fa-location-dot mr-2"></i> Rute Maps</a>
+                </div>
+
+                <div class="glass glass-blue p-8 md:p-12 rounded-3xl text-center shadow-xl text-white" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fa-solid fa-champagne-glasses text-4xl text-sky-300 mb-4"></i>
+                    <h3 class="text-3xl font-serif mb-6 border-b border-white/30 pb-4">Resepsi</h3>
+                    <p class="text-xl font-bold mb-2">Kamis, 26 Maret 2026</p>
+                    <p class="mb-6 opacity-90">11:00 WIB - Selesai</p>
+                    <p class="font-semibold text-sky-200 mb-2">Rumah Pengantin Wanita</p>
+                    <p class="text-sm opacity-80 mb-6 px-4">Jl. Diponegoro, Ateh Tambuo No. 110 B, Kel. Tarok Dipo, Kec. Guguk Panjang, Kota Bukittinggi</p>
+                    <a href="https://maps.app.goo.gl/JSpanmYncfCyFx6T8" target="_blank" class="inline-block bg-white text-navy px-8 py-3 rounded-full text-sm font-bold hover:bg-sky-100 transition shadow-lg"><i class="fa-solid fa-location-dot mr-2"></i> Rute Maps</a>
+                </div>
+            </div>
+
+            <div class="mt-16 rounded-3xl overflow-hidden shadow-2xl border-4 border-white/20" data-aos="zoom-in">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d457.96080608892584!2d100.38747287941783!3d-0.3152239547588752!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2fd538f30c698475%3A0x452ac8a138dbd58b!2sAmpera%20Riziq!5e0!3m2!1sid!2sid!4v1773857208509!5m2!1sid!2sid" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 desktop-container">
+        <h2 class="text-center text-5xl text-navy font-cursive mb-16" data-aos="fade-down">Momen Bahagia</h2>
+        
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6">
+            <div class="h-48 md:h-80 rounded-2xl overflow-hidden shadow-lg relative group" data-aos="fade-up">
+                <img src="https://drive.google.com/uc?export=view&id=1tH9fji4svaV9vNqMSRpOL7ay9MBcw0g5" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            </div>
+            <div class="h-48 md:h-80 rounded-2xl overflow-hidden shadow-lg relative group" data-aos="fade-up" data-aos-delay="100">
+                <img src="https://drive.google.com/uc?export=view&id=19EFVftF15C7pTNK2AY_qgW-6Fqrg0KVj" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            </div>
+            <div class="h-48 md:h-80 rounded-2xl overflow-hidden shadow-lg relative group" data-aos="fade-up" data-aos-delay="200">
+                <img src="https://drive.google.com/uc?export=view&id=1OJSeaWrHIf7XnsQ4lYc88RWlzpNTGrUy" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            </div>
+            <div class="h-64 md:h-96 rounded-2xl overflow-hidden shadow-lg md:col-span-2 relative group" data-aos="fade-up">
+                <img src="https://drive.google.com/uc?export=view&id=1b4t4rd8y0chuqtGsz0AbsPQhdl-msGM8" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            </div>
+            <div class="h-64 md:h-96 rounded-2xl overflow-hidden shadow-lg relative group" data-aos="fade-up" data-aos-delay="100">
+                <img src="https://drive.google.com/uc?export=view&id=18t4wh14ferHuOQXPjSFg7A31xYwRUkjY" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 relative bg-sky-100">
+        <div class="absolute inset-0 opacity-20" style="background-image: url('https://www.transparenttextures.com/patterns/flowers.png');"></div>
+        
+        <div class="desktop-container relative z-10 text-center">
+            <h2 class="text-5xl text-navy font-cursive mb-6" data-aos="fade-up">Wedding Gift</h2>
+            <p class="text-sm text-gray-700 max-w-xl mx-auto mb-12 italic" data-aos="fade-up">"Doa restu Anda adalah hadiah terbaik bagi kami. Namun jika Anda ingin memberikan tanda kasih, dapat melalui fitur di bawah ini:"</p>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+                <div class="bg-white p-8 rounded-3xl shadow-xl border-t-8 border-navy transform hover:-translate-y-2 transition duration-300" data-aos="zoom-in">
+                    <p class="font-bold text-xl text-navy mb-4">BANK BCA</p>
+                    <p class="text-3xl font-mono tracking-widest text-gray-800 mb-2">5467037965</p>
+                    <p class="text-gray-500 font-semibold mb-6">a.n Hanivah Mardiyani</p>
+                    <button onclick="copyRek('5467037965')" class="bg-sky-100 text-navy border border-navy px-6 py-2 rounded-full text-sm font-bold hover:bg-navy hover:text-white transition w-full">
+                        <i class="fa-regular fa-copy mr-2"></i> SALIN NOMOR REKENING
+                    </button>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-xl border-t-8 border-sky-400 transform hover:-translate-y-2 transition duration-300" data-aos="zoom-in" data-aos-delay="200">
+                    <p class="font-bold text-xl text-sky-600 mb-4">BANK MANDIRI</p>
+                    <p class="text-3xl font-mono tracking-widest text-gray-800 mb-2">1330032190043</p>
+                    <p class="text-gray-500 font-semibold mb-6">a.n Hanivah Mardiyani</p>
+                    <button onclick="copyRek('1330032190043')" class="bg-sky-100 text-navy border border-navy px-6 py-2 rounded-full text-sm font-bold hover:bg-navy hover:text-white transition w-full">
+                        <i class="fa-regular fa-copy mr-2"></i> SALIN NOMOR REKENING
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 desktop-container">
+        <div class="max-w-3xl mx-auto glass p-8 md:p-12 rounded-[2rem] shadow-2xl border-2 border-white" data-aos="fade-up">
+            <div class="text-center mb-10">
+                <h2 class="text-4xl text-navy font-serif mb-4">Reservasi Kehadiran</h2>
+                <p class="italic text-gray-600">"Doa restu Anda adalah hadiah terbaik bagi kami"</p>
+            </div>
+            
+            <form id="rsvp-form" class="space-y-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-bold text-navy mb-2">Nama Anda</label>
+                        <input type="text" id="nama_tamu" class="w-full px-5 py-4 rounded-xl border border-gray-300 focus:ring-2 focus:ring-sky-300 outline-none bg-white/70" placeholder="Masukkan nama Anda...">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-navy mb-2">Konfirmasi Kehadiran</label>
+                        <select id="status_hadir" class="w-full px-5 py-4 rounded-xl border border-gray-300 focus:ring-2 focus:ring-sky-300 outline-none bg-white/70">
+                            <option value="Hadir">Ya, Saya akan hadir</option>
+                            <option value="Tidak Hadir">Maaf, saya tidak bisa hadir</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-navy mb-2">Pesan & Doa Restu</label>
+                    <textarea id="pesan_tamu" class="w-full px-5 py-4 rounded-xl border border-gray-300 h-32 outline-none focus:ring-2 focus:ring-sky-300 bg-white/70" placeholder="Tulis ucapan selamat dan doa..."></textarea>
+                </div>
+                <button type="button" onclick="kirimUcapan()" class="w-full bg-navy text-white py-4 rounded-xl font-bold text-lg hover:shadow-xl hover:bg-blue-900 transition duration-300">
+                    <i class="fa-solid fa-paper-plane mr-2"></i> Kirim Ucapan
+                </button>
+            </form>
+
+            <div id="daftar-ucapan" class="mt-12 space-y-4 max-h-80 overflow-y-auto pr-2"></div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-slate-900 text-white px-6">
+        <div class="desktop-container max-w-4xl mx-auto">
+            <div class="text-center mb-8">
+                <h3 class="text-2xl font-bold text-sky-400"><i class="fa-solid fa-share-nodes mr-2"></i> Admin Tool: Share WhatsApp</h3>
+                <p class="text-sm text-gray-400 mt-2">Buat link undangan otomatis sesuai nama tamu dan kirim via WA (Berfungsi di HP & PC).</p>
+            </div>
+
+            <div class="bg-slate-800 p-6 md:p-8 rounded-3xl border border-slate-700 shadow-xl grid md:grid-cols-2 gap-8">
+                <div class="space-y-4">
+                    <div>
+                        <label class="text-xs uppercase text-gray-400 font-bold">Daftar Nama Tamu</label>
+                        <textarea id="admin-names" class="w-full bg-slate-900 text-white p-4 rounded-xl mt-2 outline-none focus:ring-1 focus:ring-sky-500 h-32 border border-slate-700" placeholder="Ketik nama tamu di sini...&#10;Gunakan ENTER untuk baris baru.&#10;Contoh:&#10;Budi Santoso&#10;Sinta & Keluarga"></textarea>
+                    </div>
+                    <div>
+                        <label class="text-xs uppercase text-gray-400 font-bold">Gaya Bahasa Pengantar</label>
+                        <select id="admin-template" class="w-full bg-slate-900 text-white p-4 rounded-xl mt-2 outline-none border border-slate-700">
+                            <option value="formal">Pesan Formal (Sopan / Rekan Kerja)</option>
+                            <option value="casual">Pesan Santai (Teman Dekat)</option>
+                        </select>
+                    </div>
+                    <button onclick="generateLinks()" class="w-full bg-sky-500 hover:bg-sky-400 text-white py-4 rounded-xl font-bold transition">
+                        Buat Link Tamu
+                    </button>
+                </div>
+
+                <div class="bg-slate-900 rounded-xl p-4 border border-slate-700 h-full overflow-hidden flex flex-col">
+                    <p class="text-sm font-bold text-gray-400 mb-4 border-b border-slate-700 pb-2">Hasil Link (Klik icon WA untuk kirim):</p>
+                    <div id="admin-results" class="space-y-3 overflow-y-auto flex-1 pr-2">
+                        <p class="text-center text-xs text-gray-600 mt-10 italic">Belum ada link dibuat.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-16 text-xs text-gray-500 font-mono">
+            Developed by Frontend Professional | © 2026 Nova & Eka
+        </div>
+    </section>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // 1. Inisialisasi Animasi Scroll
+        AOS.init({ duration: 1000, once: true });
+
+        // 2. Ambil Nama Tamu dari Link (contoh: website.com/?to=Budi+Santoso)
+        const urlParams = new URLSearchParams(window.location.search);
+        const guestName = urlParams.get('to') || 'Tamu Undangan';
+        document.getElementById('guest-name-door').innerText = guestName;
+
+        // 3. Fungsi Buka Undangan & Play Music
+        function openInvitation() {
+            // Hilangkan Layar Biru
+            document.getElementById('door-overlay').classList.add('door-open');
+            document.body.classList.remove('overflow-hidden');
+
+            // Play YouTube Music secara background
+            // Trik menggunakan iframe YouTube Player API agar jalan otomatis setelah klik pertama
+            const audioDiv = document.getElementById('audio-container');
+            audioDiv.innerHTML = `<iframe width="0" height="0" src="https://www.youtube.com/embed/-5yesrzuT3U?autoplay=1&loop=1&playlist=-5yesrzuT3U" frameborder="0" allow="autoplay"></iframe>`;
+        }
+
+        // 4. Countdown Timer Logika
+        const targetDate = new Date("March 26, 2026 09:00:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+            
+            if (distance > 0) {
+                document.getElementById('days').innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+                document.getElementById('hours').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                document.getElementById('minutes').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                document.getElementById('seconds').innerText = Math.floor((distance % (1000 * 60)) / 1000);
+            }
+        }, 1000);
+
+        // 5. Fitur Salin Rekening
+        function copyRek(nomor) {
+            navigator.clipboard.writeText(nomor).then(() => {
+                alert("Berhasil disalin: " + nomor);
+            });
+        }
+
+        // 6. Fitur Kirim Ucapan Simulasi
+        function kirimUcapan() {
+            const nama = document.getElementById('nama_tamu').value;
+            const status = document.getElementById('status_hadir').value;
+            const pesan = document.getElementById('pesan_tamu').value;
+
+            if(!nama || !pesan) return alert("Mohon isi nama dan pesan Anda!");
+
+            const divUcapan = document.createElement('div');
+            divUcapan.className = "bg-white/80 p-4 rounded-xl shadow border-l-4 border-navy mb-3";
+            divUcapan.innerHTML = `
+                <div class="flex justify-between items-center mb-1">
+                    <p class="font-bold text-navy">${nama}</p>
+                    <span class="text-[10px] font-bold px-2 py-1 rounded bg-sky-100 text-sky-700">${status}</span>
+                </div>
+                <p class="text-sm text-gray-700">${pesan}</p>
+            `;
+            
+            const wadah = document.getElementById('daftar-ucapan');
+            wadah.insertBefore(divUcapan, wadah.firstChild);
+            
+            // Kosongkan form
+            document.getElementById('rsvp-form').reset();
+            alert("Terima kasih, ucapan Anda berhasil dikirim!");
+        }
+
+        // 7. Fitur Admin Generator WhatsApp (PENTING!)
+        function generateLinks() {
+            const input = document.getElementById('admin-names').value;
+            const style = document.getElementById('admin-template').value;
+            const arrayNama = input.split('\n').filter(n => n.trim() !== "");
+            const wadahHasil = document.getElementById('admin-results');
+
+            if(arrayNama.length === 0) return alert("Silakan ketik minimal 1 nama tamu!");
+
+            wadahHasil.innerHTML = ""; // Bersihkan list sebelumnya
+            
+            // URL dasar website ini (jika sudah dihosting)
+            // Jika Anda jalankan di laptop, ini akan menunjuk ke file lokal Anda.
+            // Jika sudah di hosting, ini akan otomatis menjadi domain Anda (misal: https://nova-eka.vercel.app)
+            let baseUrl = window.location.href.split('?')[0];
+
+            arrayNama.forEach(nama => {
+                // Buat link spesial untuk tamu tersebut
+                const linkTamu = `${baseUrl}?to=${encodeURIComponent(nama.trim())}`;
+                
+                // Susun teks WhatsApp
+                let teksWA = "";
+                if(style === 'formal') {
+                    teksWA = `Kepada Yth. Bapak/Ibu/Saudara/i *${nama.trim()}*.\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang Anda untuk hadir di acara pernikahan kami.\n\nBerikut link undangan kami untuk info lengkap acara:\n${linkTamu}\n\nMerupakan suatu kehormatan bagi kami apabila Anda berkenan hadir dan memberikan doa restu.\n\nTerima kasih,\nNova & Eka`;
+                } else {
+                    teksWA = `Halo *${nama.trim()}*!\n\nKami ingin membagikan kabar bahagia pernikahan kami. Kami sangat berharap kedatanganmu di acara kami.\n\nBuka link undangan digital ini ya:\n${linkTamu}\n\nJangan lupa datang ya, doa dan kehadiranmu sangat berarti buat kami!\n\nSalam,\nNova & Eka`;
+                }
+
+                // API WhatsApp Universal (Bisa buka di Web atau Aplikasi HP)
+                const apiWA = `https://api.whatsapp.com/send?text=${encodeURIComponent(teksWA)}`;
+
+                // Buat Elemen List
+                const box = document.createElement('div');
+                box.className = "flex justify-between items-center bg-slate-800 p-3 rounded-lg border border-slate-700";
+                box.innerHTML = `
+                    <div class="overflow-hidden pr-2">
+                        <p class="font-bold text-sky-300 text-sm truncate">${nama}</p>
+                        <p class="text-[10px] text-gray-500 truncate mt-1">...${linkTamu.substr(-25)}</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="copyRek('${linkTamu}')" class="bg-slate-700 hover:bg-slate-600 text-white p-2 rounded-lg text-xs" title="Copy Link"><i class="fa-solid fa-copy"></i></button>
+                        <a href="${apiWA}" target="_blank" class="bg-green-600 hover:bg-green-500 text-white p-2 rounded-lg text-xs" title="Kirim ke WA"><i class="fa-brands fa-whatsapp text-lg"></i></a>
+                    </div>
+                `;
+                wadahHasil.appendChild(box);
+            });
+        }
+    </script>
+</body>
+</html>
